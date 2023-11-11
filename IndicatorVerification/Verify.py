@@ -1,5 +1,7 @@
 import pandas as pd
 from scipy.stats import pearsonr
+import sys
+sys.path.append('Operator')
 import Operator
 
 cognition_missing_rate = 0.5
