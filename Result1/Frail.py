@@ -1,0 +1,105 @@
+import numpy as np
+import pandas as pd
+from Common import CommonFunction
+
+emo_18 = [
+    "被事情困扰",
+    "记事困难",
+    "感到低落",
+    "感觉做的一切都是徒劳",
+    "对未来感到充满希望",
+    "我感到害怕",
+    "睡眠质量不好",
+    "我过去很开心",
+    "我感到孤独",
+    "我无法聚精会神",
+]
+df = pd.read_csv('D:\Personal\Program\MICE\ModifiedData\\frail-1.csv', index_col="ID")
+df.sort_index(inplace=True)
+
+
+def more_than_value(row):
+    cnt = 0
+    for i in row:
+        if str(i) == 'nan':
+            cnt += 1
+    return cnt / row.shape[0] >= 0.05
+
+
+for i in range(0, df.shape[0]):
+    dfi = df.loc[df.index.values[i], "自报健康差"]
+    if dfi >= 4:
+        df.loc[df.index.values[i], "自报健康差"] = 1
+    elif dfi < 4:
+        df.loc[df.index.values[i], "自报健康差"] = 0
+
+# 从 躯体残疾 到 哮喘
+for j in range(1, 18):
+    for i in range(0, df.shape[0]):
+        dfi = df.iloc[i, j]
+        if dfi == 2:
+            df.iloc[i, j] = 0
+
+# 从 跑或慢跑 到 管理财务
+for j in range(18, 37):
+    for i in range(0, df.shape[0]):
+        dfi = df.iloc[i, j]
+        if dfi == 3 or dfi == 4:
+            df.iloc[i, j] = 1
+        elif dfi == 1 or dfi == 2:
+            df.iloc[i, j] = 0
+
+for j in range(0, df.shape[0]):
+    # 从 被事情困扰 到 感觉做的一切都是徒劳
+    for i in range(0, 4):
+        va = df.loc[df.index.values[j], emo_18[i]]
+        if 1 <= va <= 4:
+            df.loc[df.index.values[j], emo_18[i]] -= 1
+        elif va == 9 or va == 8:
+            df.loc[df.index.values[j], emo_18[i]] = np.nan
+    # 从 对未来感到充满希望 到 我过去很开心
+    for i in range(4, 8):
+        va = df.loc[df.index.values[j], emo_18[i]]
+        if 1 <= va <= 4:
+            df.loc[df.index.values[j], emo_18[i]] = 3 - (va - 1)
+        elif va == 9 or va == 8:
+            df.loc[df.index.values[j], emo_18[i]] = np.nan
+    # 从 我感到孤独 到 我无法聚精会神
+    for i in range(8, 10):
+        va = df.loc[df.index.values[j], emo_18[i]]
+        if 1 <= va <= 4:
+            df.loc[df.index.values[j], emo_18[i]] -= 1
+        elif va == 9 or va == 8:
+            df.loc[df.index.values[j], emo_18[i]] = np.nan
+
+df = CommonFunction.imputation(CommonFunction.del_specific(df, more_than_value))
+
+# 计算是否抑郁
+df["抑郁"] = np.nan
+for j in range(0, df.shape[0]):
+    score = 0
+    for i in range(0, 10):
+        score += df.loc[df.index.values[j], emo_18[i]]
+    if score >= 10:
+        df.loc[df.index.values[j], "抑郁"] = 1
+    elif score < 10:
+        df.loc[df.index.values[j], "抑郁"] = 0
+
+# 删除多余的抑郁指标
+df.drop(columns=emo_18, axis=0, inplace=True)
+
+# 计算是否衰弱
+df["衰弱"] = np.nan
+for j in range(0, df.shape[0]):
+    score = 0.0
+    for i in range(0, 40):
+        if df.iloc[j, i] > 0:
+            score += df.iloc[j, i]
+    score /= df.shape[1] + 1
+
+    if score >= 0.25:
+        df.loc[df.index.values[j], "衰弱"] = 1
+    elif score < 0.25:
+        df.loc[df.index.values[j], "衰弱"] = 0
+
+df.to_csv('D:\Personal\Program\MICE\Result1\Frail.csv')

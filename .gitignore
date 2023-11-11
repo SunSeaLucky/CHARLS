@@ -1,0 +1,11 @@
+*.csv
+
+*.dta
+
+*.xlsx
+
+*.xls
+
+.idea/
+
+__pycache__/
