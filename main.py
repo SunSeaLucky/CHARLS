@@ -24,7 +24,7 @@ PATHS = {
     },
 }
 
-# 2011 -----
+# ----- 2011 -----
 a = pd.read_stata(PATHS["2011"]["HSF_PATH"], index_col="ID", convert_categoricals=False)
 b = pd.read_stata(PATHS["2011"]["DB_PATH"], index_col="ID", convert_categoricals=False)
 c = pd.read_stata(PATHS["2011"]["BIO_PATH"], index_col="ID", convert_categoricals=False)
@@ -32,6 +32,13 @@ y2011_resource = c.merge(a.merge(b, on="ID"), on="ID")
 
 y2011_cog = Operator.DataOperator(2011, "MMSE", y2011_resource)
 y2011_fra = Operator.DataOperator(2011, "PFP", y2011_resource)
+
+y2011_cog.df.dropna(axis=0, thresh=40, inplace=True)
+y2011_fra.df.dropna(axis=0, thresh=10, inplace=True)
+# y2011_cog.df.fillna(-1, inplace=True)
+
+y2011_cog.imputation()
+y2011_fra.imputation()
 
 y2011_cog.calculate_MMSE_indicators()
 y2011_fra.calculate_PFP_indicators()
