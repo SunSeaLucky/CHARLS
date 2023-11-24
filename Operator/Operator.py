@@ -8,8 +8,11 @@ def is_cog_imp(sco: int, edu: int):
     :param edu:
     :return: 是不是认知障碍
     """
-    k = 1.347
-    b = -1.293
+    # k = 1.347
+    # b = -1.293
+    k = 1
+    b = 0
+    # print("edu: " + str(edu) + ", sco: " + str(sco))
     if edu <= 4:
         return sco < 21 * k + b
     elif 4 < edu < 8:
@@ -731,6 +734,7 @@ class DataOperator:
             # 30
             score += 1 if int(self.df.loc[i, indicators[74]]) == 1 else 0
             score_array.append(score)
+            # print(int(self.df.loc[i, indicators[75]]))
             cognition_array.append(
                 1 if is_cog_imp(score, int(self.df.loc[i, indicators[75]])) else 0
             )
@@ -780,10 +784,29 @@ class DataOperator:
                 rows.append(self.df.index.values[i])
         self.df.drop(index=rows, axis=0, inplace=True)
 
-    def imputation(self):
-        df_amp = mf.ampute_data(self.df, perc=0.25, random_state=1991)
+    def imputation(self, rate):
+        # Etract columns with missing rate less than rate to imputate
+        # Reason: if a columns only have 5% data, imputation will not have a good result
+        columns_not_null = []
+        for i in self.df.columns.values:
+            if self.df[i].isnull().sum() / self.df.shape[0] <= rate:
+                columns_not_null.append(i)
+
+        imputate_df = self.df[columns_not_null]
+        df_amp = mf.ampute_data(imputate_df, perc=0.25, random_state=1991)
         kernel = mf.ImputationKernel(
             df_amp, datasets=4, save_all_iterations=True, random_state=1
         )
         kernel.mice(2)
-        self.df = kernel.complete_data()
+        imputate_df = kernel.complete_data()
+
+        columns_null = []
+        for i in self.df.columns.values:
+            if i not in columns_not_null:
+                columns_null.append(i)
+        rest_df = self.df[columns_null]
+
+        # imputate_df.to_csv("imputate_df.csv")
+
+        # rest_df.to_csv("rest_df.csv")
+        self.df = rest_df.merge(imputate_df, on="ID")

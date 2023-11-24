@@ -33,15 +33,58 @@ y2011_resource = c.merge(a.merge(b, on="ID"), on="ID")
 y2011_cog = Operator.DataOperator(2011, "MMSE", y2011_resource)
 y2011_fra = Operator.DataOperator(2011, "PFP", y2011_resource)
 
-y2011_cog.df.dropna(axis=0, thresh=40, inplace=True)
-y2011_fra.df.dropna(axis=0, thresh=10, inplace=True)
-# y2011_cog.df.fillna(-1, inplace=True)
+# y2011_cog.df.dropna(axis=0, thresh=40, inplace=True)
+# y2011_fra.df.dropna(axis=0, thresh=10, inplace=True)
 
-y2011_cog.imputation()
-y2011_fra.imputation()
+# Imputate columns with missing rate less or equal .8
+y2011_cog.imputation(0.95)
+y2011_fra.imputation(0.95)
+
+y2011_cog.df.fillna(-1, inplace=True)
 
 y2011_cog.calculate_MMSE_indicators()
 y2011_fra.calculate_PFP_indicators()
 
-y2011_cog.df.to_csv("cog.csv")
-y2011_fra.df.to_csv("fra.csv")
+y2011_cog.df.to_csv("Result\cog-11.csv")
+y2011_fra.df.to_csv("Result\\fra-11.csv")
+
+# # ----- 2013 -----
+# a = pd.read_stata(PATHS["2013"]["HSF_PATH"], index_col="ID", convert_categoricals=False)
+# b = pd.read_stata(PATHS["2013"]["DB_PATH"], index_col="ID", convert_categoricals=False)
+# c = pd.read_stata(PATHS["2013"]["BIO_PATH"], index_col="ID", convert_categoricals=False)
+# y2011_resource = c.merge(a.merge(b, on="ID"), on="ID")
+
+# y2011_cog = Operator.DataOperator(2013, "MMSE", y2011_resource)
+# y2011_fra = Operator.DataOperator(2013, "PFP", y2011_resource)
+
+# y2011_cog.imputation(0.95)
+# y2011_fra.imputation(0.95)
+
+# y2011_cog.df.fillna(-1, inplace=True)
+
+# y2011_cog.calculate_MMSE_indicators()
+# y2011_fra.calculate_PFP_indicators()
+
+# y2011_cog.df.to_csv("Result\cog-13.csv")
+# y2011_fra.df.to_csv("Result\\fra-13.csv")
+
+# # ----- 2015 -----
+# a = pd.read_stata(PATHS["2015"]["HSF_PATH"], index_col="ID", convert_categoricals=False)
+# b = pd.read_stata(PATHS["2015"]["DB_PATH"], index_col="ID", convert_categoricals=False)
+# c = pd.read_stata(PATHS["2015"]["BIO_PATH"], index_col="ID", convert_categoricals=False)
+# y2011_resource = c.merge(a.merge(b, on="ID"), on="ID")
+
+# y2011_cog = Operator.DataOperator(2015, "MMSE", y2011_resource)
+# y2011_fra = Operator.DataOperator(2015, "PFP", y2011_resource)
+
+# # Imputate columns with missing rate less or equal .8
+# y2011_cog.imputation(0.95)
+# y2011_fra.imputation(0.95)
+
+# y2011_cog.df.fillna(-1, inplace=True)
+
+# y2011_cog.calculate_MMSE_indicators()
+# y2011_fra.calculate_PFP_indicators()
+
+# y2011_cog.df.to_csv("Result\cog-15.csv")
+# y2011_fra.df.to_csv("Result\\fra-15.csv")
