@@ -13,7 +13,7 @@ But there seems no more scale to choose. So I'd to choose some indicator that **
 PFP is good for us and all indicators it needs are perfectly appear in the fucking database CHARLS!
 
 ### Choose fitting indicator
-This is an extremly boring process. The key point is: if one indicator is missing in CHARLS, just find any other indicator *seemingly* right to replace the former indicator.
+This is an extremely boring process. The key point is: if one indicator is missing in CHARLS, just find any other indicator *seemingly* right to replace the former indicator.
 
 For example, if the indicator `Please repeat '44 stone lions'` which is a tongue-twister in Chinese to test the verbal ability is missing, I will find other indicators like below:
 - DA005 Speech impediment
@@ -26,7 +26,7 @@ After such operation, I'v successfully extract 78 indicators which can almost ac
 
 The following is the detailed choosing process:
 
-|Former Indicator|Repalced By|
+|Former Indicator|Replaced By|
 |-|-|
 |dc007_w4|dc004|
 |dc008_w4|dc004|
@@ -55,9 +55,9 @@ The following is the detailed choosing process:
 |dc024_w4|dc025|
 
 
-### Comfirm the validity of indicators we have chosen
+### Confirm the validity of indicators we have chosen
 
-I use the `Verify.py` in directory `IndicatorVerification`, you can see it easily in this project. It extract MMSE's all indicators (Yes, the data for the year of 2018 is compelete) and the indicators we just choose, caculate the cognitive impairement score respectively. Then compare score for same person respectively.
+I use the `Verify.py` in directory `IndicatorVerification`, you can see it easily in this project. It extract MMSE's all indicators (Yes, the data for the year of 2018 is complete) and the indicators we just choose, calculating the cognitive impairment score respectively. Then compare scores for same person respectively.
 
 The result shows that pearson correlation coefficient between the scores of the new method and the scores of the MMSE scale is **above 0.8**.
 
