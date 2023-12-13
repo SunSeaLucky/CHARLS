@@ -2,7 +2,7 @@
 ## Introduction
 This project is serving for my college project - **Innovative Entrepreneurship Program for University Students**. For the rest of the part, I will clarify the process of processing data in detail.
 
-## Data preprocessing
+## Preprocessing
 ### Before that
 I select the year of 2011 ~ 2015 in CHARLS to process. And in the first part, we need to determine which indicators are needed to be selected. That's depend on the scale we use (**MMSE** and **PFP**).
 
@@ -62,3 +62,63 @@ I use the `Verify.py` in directory `IndicatorVerification`, you can see it easil
 The result shows that pearson correlation coefficient between the scores of the new method and the scores of the MMSE scale is **above 0.8**.
 
 
+## Calculate
+### Extract PFP indicators and calculate score
+Get 1 score for each item:
+
+| Indicator Name                                               | Indicator Code |
+|--------------------------------------------------------------|----------------|
+| Weight Measurement                                           | ql002          |
+| Height                                                       | qi002          |
+| Left Hand-1（kg）                                            | qc003          |
+| Right Hand-1（kg）                                           | qc004          |
+| Left Hand-2（kg）                                            | qc005          |
+| Right Hand-2（kg）                                           | qc006          |
+| Walking Speed Time-1                                         | qg002          |
+| Repeat the Measurement                                       | qg003          |
+| Do Vigorous Activities At Least 10 Minutes Continuously      | da051_1_       |
+| Do Moderate Physical Effort At Least 10 Minutes Continuously | da051_2_       |
+| Walking At Least 10 Minutes Continuously                     | da051_3_       |
+| Could Not Get Going                                          | dc018          |
+| Felt Everything I Did Was An Effort                          | dc012          |
+
+### Extract MMSE indicators and calculate score
+Get 1 score for each item:
+
+| Indicator Name                      | Indicator Code                           |
+|-------------------------------------|------------------------------------------|
+| Checking Year                       | dc001s1                                  |
+| Checking Month                      | dc001s2                                  |
+| Checking Date                       | dc001s3                                  |
+| Checking Day of Week                | dc002                                    |
+| Checking Season                     | dc003                                    |
+| Checking State                      | dc004                                    |
+| Checking County                     | dc004                                    |
+| Checking City                       | dc004                                    |
+| Checking Floor                      | dc004                                    |
+| Checking Address                    | dc004                                    |
+| Repeated Time 1: Ball               | dc027s1, dc027s2, dc027s3                |
+| Repeated Time 1: Flag               | dc027s4, dc027s5, dc027s6                |
+| Repeated Time 1: Tree               | dc027s7, dc027s8, dc027s9                |
+| Specific Result from 100-7          | dc019                                    |
+| Specific Result from dc014_w4_2-7   | dc020                                    |
+| Specific Result from dc014_w4_3-7   | dc021                                    |
+| Specific Result from dc014_w4_4-7   | dc022                                    |
+| Specific Result from dc014_w4_5-7   | dc023                                    |
+| Delayed Recall: Ball Flag Tree      | dc027s1, dc027s2, dc027s3                |
+| Delayed Recall: Ball Flag Tree.1    | dc027s4, dc027s5, dc027s6                |
+| Delayed Recall: Ball Flag Tree.2    | dc027s7, dc027s8, dc027s9                |
+| Watch Correct                       | da007, da008, da013, da016, da018, da019 |
+| Pencil Correct                      |                                          |
+| Repeat Correct                      | da005, da007, da017, da056               |
+| Hand Correct                        | db009                                    |
+| Folds Correct                       | db007                                    |
+| Leg Correct                         | db006                                    |
+| Close Your Eye                      | da032, da033, da034, da056_w3, db006     |
+| Sentence Correct                    | da056_w3, db009                          |
+| Draw Correct                        | dc025                                    |
+| Highest Level of Education Attained | bd001                                    |
+| Age                                 | ba004                                    |
+| Sex                                 | rgender                                  |
+
+`Highest Level of Education Attained` and `Age` is also considered in the calculation. 
