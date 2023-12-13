@@ -20,4 +20,45 @@ For example, if the indicator `Please repeat '44 stone lions'` which is a tongue
 - DA007 Memory-related disease
 - DA056 Interacted with friends & Played Ma-jong, played chess, played cards, or went to community club
 
-In this section, some indicators like `DA005` are positive, while some indicators are negative. Given this, I set a weight manually.
+In this section, some indicators like `DA005` are positive, while some indicators are negative. Given this, I set a weight manually. It may not as exact as it really is, so I will try to confirm its validity.
+
+After such operation, I'v successfully extract 78 indicators which can almost accurately replace the indicators which are not in CHARLS.
+
+The following is the detailed choosing process:
+
+|Former Indicator|Repalced By|
+|-|-|
+|dc007_w4|dc004|
+|dc008_w4|dc004|
+|dc009_w4|dc004|
+|dc010_w4|dc004|
+|dc012_w4|dc004|
+|dc013_w4_1_s1|dc027s1, dc027s2, dc027s3|
+|dc013_w4_1_s2|dc027s4, dc027s5, dc027s6|
+|dc013_w4_1_s3|dc027s7, dc027s8, dc027s9|
+|dc014_w4_1_1|dc019|
+|dc014_w4_2_1|dc020|
+|dc014_w4_3_1|dc021|
+|dc014_w4_4_1|dc022|
+|dc014_w4_5_1|dc023|
+|dc015_w4_s1|dc027s1, dc027s2, dc027s3|
+|dc015_w4_s2|dc027s4, dc027s5, dc027s6|
+|dc015_w4_s3|dc027s7, dc027s8, dc027s9|
+|dc016_w4|da007, da008, da013, da016, da018, da019|
+|dc017_w4|da007, da008, da013, da016, da018, da019|
+|dc018_w4|da005, da007, da017, da056|
+|dc019_w4|db009|
+|dc020_w4|db007|
+|dc021_w4|db006|
+|dc022_w4|da032, da033, da034, da056_w3, db006|
+|dc023_w4|da056_w3, db009|
+|dc024_w4|dc025|
+
+
+### Comfirm the validity of indicators we have chosen
+
+I use the `Verify.py` in directory `IndicatorVerification`, you can see it easily in this project. It extract MMSE's all indicators (Yes, the data for the year of 2018 is compelete) and the indicators we just choose, caculate the cognitive impairement score respectively. Then compare score for same person respectively.
+
+The result shows that pearson correlation coefficient between the scores of the new method and the scores of the MMSE scale is **above 0.8**.
+
+
