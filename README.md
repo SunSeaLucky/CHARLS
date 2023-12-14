@@ -12,7 +12,7 @@ But there seems no more scale to choose. So I'd to choose some indicator that **
 
 PFP is good for us and all indicators it needs are perfectly appear in the fucking database CHARLS!
 
-### Choose fitting indicator
+### Choose appropriate indicator
 This is an extremely boring process. The key point is: if one indicator is missing in CHARLS, just find any other indicator *seemingly* right to replace the former indicator.
 
 For example, if the indicator `Please repeat '44 stone lions'` which is a tongue-twister in Chinese to test the verbal ability is missing, I will find other indicators like below:
