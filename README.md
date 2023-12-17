@@ -55,6 +55,33 @@ The following is the detailed choosing relationship:
 |dc024_w4|dc025|
 
 For the indicators left is not appear in CHARLS, it will be replaced by the indicators right. 
+### How the indicators are calculated?
+I believe that you must understand why some indicators are needed to be replaced by multiple indicators. So I'm going to explain how this indicators are calculated.
+
+For `dc013_w4_1_s1`, `dc013_w4_1_s2` and `dc013_w4_1_s3` are replaced by `dc027si` (`i` stands for 1, 2, 3 etc.), `dc013_w4_1_s1` will be true if any of `dc027si` (`i` stands for 1, 2, 3) is true, `dc013_w4_1_s2` will be true if any of `dc027si` (`i` stands for 4, 5, 6) is true. What is exactly the same for `dc013_w4_1_s3`.
+
+Well, there is a slightly different on `dc015_w4_si` (`i` stands for 1, 2, 3). For example, `dc015_w4_si` is true only when `dc027si`(`i` stands for 1, 2, 3) are all true.
+
+For `dc016_w4` and `dc017_w4` are both set as the second way I mentioned above. So I won't explain it any more.
+
+Let's discuss about `dc018_w4`. In my code, you can see the weight as below:
+|Indicator|`da005`|`da007`|`da017`|`da056`|
+|-|-|-|-|-|
+|Weight|0.3|0.3|0.2|0.2|
+
+After all the four indicators are calculated, if the sum of them is greater than 0.5, then we assume `dc018_w4` is true.
+
+For `dc022_w4`:
+|Indicator|`da032`|`da033`|`da034`|`da056_w3`|`db006`|
+|-|-|-|-|-|-|
+|Weight|0.2|0.2|0.2|0.3|0.3|
+
+For `dc023_w4`:
+|Indicator|`da056_w3`|`db009`|
+|-|-|-|
+|Weight|0.5|0.4|
+
+
 ### Confirm the validity of indicators we have chosen
 
 I use the `Verify.py` in directory `IndicatorVerification`, you can see it easily in this project. It extract MMSE's all indicators (Yes, the data for the year of 2018 is full) and the indicators we just choose, calculating the cognitive impairment of new method and MMSE method score respectively. Then compare scores for the same person respectively.
@@ -132,10 +159,12 @@ Get 1 score for each item:
 | Age                                 | ba004                                    |
 | Sex                                 | rgender                                  |
 
+
+
 ### Calculate cognitive impairment score
 `Highest Level of Education Attained` and `Age` is also considered in the calculation. 
 
-We firstly delete people who's age is less than `45`, then calculation of score is following below:
+We firstly remove people who's age is less than `45`, then the calculation of score is followed as below:
 |Score|Education|
 |-|-|
 |21|Abnormal for 8-th grade education|
