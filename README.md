@@ -1,10 +1,10 @@
 # CHARLS
 ## Introduction
-This project is serving for my college project - **Innovative Entrepreneurship Program for University Students**. For the rest of the part, I will clarify the process of processing data in detail.
+This project is serving for my college project - IEPUS (Innovative Entrepreneurship Program for University Students). For the rest of the part, I will clarify the process of processing data in detail.
 
 ## Preprocessing
 ### Before that
-I select the year of 2011 ~ 2015 in CHARLS to process. And in the first part, we need to determine which indicators are needed to be selected. That's depend on the scale we use (**MMSE** and **PFP**).
+I select the year of 2011 ~ 2015 in CHARLS (China Health and Retirement Longitudinal Study) to process. And in the first part, we need to determine which indicators are needed to be selected. That's depend on the scale we use (**MMSE** and **PFP**).
 
 MMSE is some kind of very excellent scale. However, a part of indicators **DOES NOT** appear in the data provided by CHARLS.
 
@@ -54,12 +54,12 @@ The following is the detailed choosing process:
 |dc023_w4|da056_w3, db009|
 |dc024_w4|dc025|
 
-
+For the indicators left is not appear in CHARLS, it will be replaced by the indicators right. 
 ### Confirm the validity of indicators we have chosen
 
-I use the `Verify.py` in directory `IndicatorVerification`, you can see it easily in this project. It extract MMSE's all indicators (Yes, the data for the year of 2018 is complete) and the indicators we just choose, calculating the cognitive impairment score respectively. Then compare scores for same person respectively.
+I use the `Verify.py` in directory `IndicatorVerification`, you can see it easily in this project. It extract MMSE's all indicators (Yes, the data for the year of 2018 is full) and the indicators we just choose, calculating the cognitive impairment of new method and MMSE method score respectively. Then compare scores for the same person respectively.
 
-The result shows that pearson correlation coefficient between the scores of the new method and the scores of the MMSE scale is **above 0.8**.
+The result shows that pearson correlation coefficient between the scores of the new method and the scores of the MMSE scale is **above 0.8**. So now we assume that new method can work as better as MMSE.
 
 
 ## Calculate
@@ -81,7 +81,18 @@ Get 1 score for each item:
 | Walking At Least 10 Minutes Continuously                     | da051_3_       |
 | Could Not Get Going                                          | dc018          |
 | Felt Everything I Did Was An Effort                          | dc012          |
+### Calculate frail score
+We divide the 13 indicators into 5 parts, which stands for the following 5 parts:
+1. Weight Loss
+2. Weakness
+3. Slowness
+4. Low Energy Expenditure
+5. Exhaustion
 
+And the criterion to judge wether somebody is frail or not is shown as below:
+> ≥3/5 criteria met indicates frailty; 1-2/5 indicates pre-or-intermediate frailty; 0/5 indicates non-frail.
+
+If you want to know any specific indicator is divided into which part, please refer to `Assets/DataPreproccessing.pdf`.
 ### Extract MMSE indicators and calculate score
 Get 1 score for each item:
 
@@ -109,7 +120,7 @@ Get 1 score for each item:
 | Delayed Recall: Ball Flag Tree.1    | dc027s4, dc027s5, dc027s6                |
 | Delayed Recall: Ball Flag Tree.2    | dc027s7, dc027s8, dc027s9                |
 | Watch Correct                       | da007, da008, da013, da016, da018, da019 |
-| Pencil Correct                      |                                          |
+| Pencil Correct                      | da007, da008, da013, da016, da018, da019 |                                        |
 | Repeat Correct                      | da005, da007, da017, da056               |
 | Hand Correct                        | db009                                    |
 | Folds Correct                       | db007                                    |
@@ -121,4 +132,10 @@ Get 1 score for each item:
 | Age                                 | ba004                                    |
 | Sex                                 | rgender                                  |
 
+### Calculate cognitive impairment score
 `Highest Level of Education Attained` and `Age` is also considered in the calculation. 
+
+
+
+
+
