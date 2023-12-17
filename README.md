@@ -24,7 +24,7 @@ In this section, some indicators like `DA005` are positive, while some indicator
 
 After such operation, I'v successfully extract 78 indicators which can almost accurately replace the indicators which are not in CHARLS.
 
-The following is the detailed choosing process:
+The following is the detailed choosing relationship:
 
 |Former Indicator|Replaced By|
 |-|-|
@@ -135,7 +135,9 @@ Get 1 score for each item:
 ### Calculate cognitive impairment score
 `Highest Level of Education Attained` and `Age` is also considered in the calculation. 
 
-
-
-
-
+We firstly delete people who's age is less than `45`, then calculation of score is following below:
+|Score|Education|
+|-|-|
+|21|Abnormal for 8-th grade education|
+|<23|Abnormal for high school education|
+|<24|Abnormal for college education|
