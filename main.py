@@ -33,50 +33,50 @@ PATHS = {
 }
 
 # ----- 2011 -----
-# a = pd.read_stata(PATHS["2011"]["HSF_PATH"], index_col="ID", convert_categoricals=False)
-# b = pd.read_stata(PATHS["2011"]["DB_PATH"], index_col="ID", convert_categoricals=False)
-# c = pd.read_stata(PATHS["2011"]["BIO_PATH"], index_col="ID", convert_categoricals=False)
-# y2011_resource = c.merge(a.merge(b, on="ID"), on="ID")
+a = pd.read_stata(PATHS["2011"]["HSF_PATH"], index_col="ID", convert_categoricals=False)
+b = pd.read_stata(PATHS["2011"]["DB_PATH"], index_col="ID", convert_categoricals=False)
+c = pd.read_stata(PATHS["2011"]["BIO_PATH"], index_col="ID", convert_categoricals=False)
+y2011_resource = c.merge(a.merge(b, on="ID"), on="ID")
 
-# y2011_cog = Operator.DataOperator(2011, "MMSE", y2011_resource)
-# # Set current year to calculate the age, then we can delete people who's age is less than 45
-# year = y2011_cog.year
-# y2011_cog.del_specific_rows(delete_age)
-# y2011_fra = Operator.DataOperator(2011, "PFP", y2011_resource)
+y2011_cog = Operator.DataOperator(2011, "MMSE", y2011_resource)
+# Set current year to calculate the age, then we can delete people who's age is less than 45
+year = y2011_cog.year
+y2011_cog.del_specific_rows(delete_age)
+y2011_fra = Operator.DataOperator(2011, "PFP", y2011_resource)
 
-# # Imputate columns with missing rate less or equal .95
-# y2011_cog.imputation(0.95)
-# y2011_fra.imputation(0.95)
+# Imputate columns with missing rate less or equal .95
+y2011_cog.imputation(0.95)
+y2011_fra.imputation(0.95)
 
-# y2011_cog.df.fillna(-1, inplace=True)
+y2011_cog.df.fillna(-1, inplace=True)
 
-# y2011_cog.calculate_MMSE_indicators()
-# y2011_fra.calculate_PFP_indicators()
+y2011_cog.calculate_MMSE_indicators()
+y2011_fra.calculate_PFP_indicators()
 
-# y2011_cog.df.to_csv("Result\cog-11.csv")
-# y2011_fra.df.to_csv("Result\\fra-11.csv")
+y2011_cog.df.to_csv("Result\cog-11.csv")
+y2011_fra.df.to_csv("Result\\fra-11.csv")
 
 # ----- 2013 -----
-# a = pd.read_stata(PATHS["2013"]["HSF_PATH"], index_col="ID", convert_categoricals=False)
-# b = pd.read_stata(PATHS["2013"]["DB_PATH"], index_col="ID", convert_categoricals=False)
-# c = pd.read_stata(PATHS["2013"]["BIO_PATH"], index_col="ID", convert_categoricals=False)
-# y2013_resource = c.merge(a.merge(b, on="ID"), on="ID")
+a = pd.read_stata(PATHS["2013"]["HSF_PATH"], index_col="ID", convert_categoricals=False)
+b = pd.read_stata(PATHS["2013"]["DB_PATH"], index_col="ID", convert_categoricals=False)
+c = pd.read_stata(PATHS["2013"]["BIO_PATH"], index_col="ID", convert_categoricals=False)
+y2013_resource = c.merge(a.merge(b, on="ID"), on="ID")
 
-# y2013_cog = Operator.DataOperator(2013, "MMSE", y2013_resource)
-# year = y2013_cog.year
-# y2013_cog.del_specific_rows(delete_age)
-# y2013_fra = Operator.DataOperator(2013, "PFP", y2013_resource)
+y2013_cog = Operator.DataOperator(2013, "MMSE", y2013_resource)
+year = y2013_cog.year
+y2013_cog.del_specific_rows(delete_age)
+y2013_fra = Operator.DataOperator(2013, "PFP", y2013_resource)
 
-# y2013_cog.imputation(0.95)
-# y2013_fra.imputation(0.95)
+y2013_cog.imputation(0.95)
+y2013_fra.imputation(0.95)
 
-# y2013_cog.df.fillna(-1, inplace=True)
+y2013_cog.df.fillna(-1, inplace=True)
 
-# y2013_cog.calculate_MMSE_indicators()
-# y2013_fra.calculate_PFP_indicators()
+y2013_cog.calculate_MMSE_indicators()
+y2013_fra.calculate_PFP_indicators()
 
-# y2013_cog.df.to_csv("Result\cog-13.csv")
-# y2013_fra.df.to_csv("Result\\fra-13.csv")
+y2013_cog.df.to_csv("Result\cog-13.csv")
+y2013_fra.df.to_csv("Result\\fra-13.csv")
 
 # ----- 2015 -----
 a = pd.read_stata(PATHS["2015"]["HSF_PATH"], index_col="ID", convert_categoricals=False)
