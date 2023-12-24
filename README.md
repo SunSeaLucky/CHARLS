@@ -88,7 +88,7 @@ I use the `Verify.py` in directory `IndicatorVerification`, you can see it easil
 
 The result shows that pearson correlation coefficient between the scores of the new method and the scores of the MMSE scale is **above 0.8**. So now we assume that new method can work as better as MMSE.
 
-![img.png](Assets/img.png)
+![img.png](Assets/pearsonr.png)
 
 ## Calculate
 ### Extract PFP indicators and calculate score
