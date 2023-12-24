@@ -60,8 +60,17 @@ res = Operator.merge_df(cog_new.df, cog.df)
 
 new = res["new_score"]
 old = res["score"]
-
-print(pearsonr(new, old))
+pearson = pearsonr(new, old)
 # plt.figure(figsize=(10, 10), dpi=100)
+plt.title(
+    "Comparison of MMSE and our way \n(Pearson: "
+    + str(pearson[0])
+    + "p-value: "
+    + str(pearson[1])
+    + ")"
+)
 plt.scatter(new, old)
+plt.xlabel("Our way")
+plt.ylabel("MMSE")
+plt.plot(new, old, "o", color="black")
 plt.show()
