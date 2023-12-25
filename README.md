@@ -1,9 +1,13 @@
 # CHARLS
+
 ## Introduction
+
 This project is serving for my college project - IEPUS (Innovative Entrepreneurship Program for University Students). For the rest of the part, I will clarify the process of processing data in detail.
 
 ## Preprocessing
+
 ### Before that
+
 I select the year of 2011 ~ 2015 in CHARLS (China Health and Retirement Longitudinal Study) to process. And in the first part, we need to determine which indicators are needed to be selected. That's depend on the scale we use (**MMSE** and **PFP**).
 
 MMSE is some kind of very excellent scale. However, a part of indicators **DOES NOT** appear in the data provided by CHARLS.
@@ -13,9 +17,11 @@ But there seems no more scale to choose. So I'd to choose some indicator that **
 PFP is good for us and all indicators it needs are perfectly appear in the fucking database CHARLS!
 
 ### Choose appropriate indicator
+
 This is an extremely boring process. The key point is: if one indicator is missing in CHARLS, just find any other indicator *seemingly* right to replace the former indicator.
 
 For example, if the indicator `Please repeat '44 stone lions'` which is a tongue-twister in Chinese to test the verbal ability is missing, I will find other indicators like below:
+
 - DA005 Speech impediment
 - DA007 Memory-related disease
 - DA056 Interacted with friends & Played Ma-jong, played chess, played cards, or went to community club
@@ -54,8 +60,10 @@ The following is the detailed choosing relationship:
 |`dc023_w4`|`da056_w3`, `db009`|
 |`dc024_w4`|`dc025`|
 
-For the indicators left is not appear in CHARLS, it will be replaced by the indicators right. 
+For the indicators left is not appear in CHARLS, it will be replaced by the indicators right.
+
 ### How the indicators are calculated?
+
 I believe that you must understand why some indicators are needed to be replaced by multiple indicators. So I'm going to explain how this indicators are calculated.
 
 For `dc013_w4_1_s1`, `dc013_w4_1_s2` and `dc013_w4_1_s3` are replaced by `dc027si` (`i` stands for 1, 2, 3 etc.), `dc013_w4_1_s1` will be true if any of `dc027si` (`i` stands for 1, 2, 3) is true, `dc013_w4_1_s2` will be true if any of `dc027si` (`i` stands for 4, 5, 6) is true. What is exactly the same for `dc013_w4_1_s3`.
@@ -81,7 +89,6 @@ For `dc023_w4`:
 |-|-|-|
 |Weight|0.5|0.4|
 
-
 ### Confirm the validity of indicators we have chosen
 
 I use the `Verify.py` in directory `IndicatorVerification`, you can see it easily in this project. It extract MMSE's all indicators (Yes, the data for the year of 2018 is full) and the indicators we just choose, calculating the cognitive impairment of new method and MMSE method score respectively. Then compare scores for the same person respectively.
@@ -91,7 +98,9 @@ The result shows that pearson correlation coefficient between the scores of the 
 ![img.png](Assets/pearsonr.png)
 
 ## Calculate
+
 ### Extract PFP indicators and calculate score
+
 Get 1 score for each item:
 
 | Indicator Name                                               | Indicator Code |
@@ -109,8 +118,11 @@ Get 1 score for each item:
 | Walking At Least 10 Minutes Continuously                     | `da051_3_`       |
 | Could Not Get Going                                          | `dc018`          |
 | Felt Everything I Did Was An Effort                          | `dc012`          |
+
 ### Calculate frail score
+
 We divide the 13 indicators into 5 parts, which stands for the following 5 parts:
+
 1. Weight Loss
 2. Weakness
 3. Slowness
@@ -121,7 +133,9 @@ And the criterion to judge wether somebody is frail or not is shown as below:
 > ≥3/5 criteria met indicates frailty; 1-2/5 indicates pre-or-intermediate frailty; 0/5 indicates non-frail.
 
 If you want to know any specific indicator is divided into which part, please refer to `Assets/DataPreproccessing.pdf`.
+
 ### Extract MMSE indicators and calculate score
+
 Get 1 score for each item:
 
 | Indicator Name                      | Indicator Code                           |
@@ -160,10 +174,9 @@ Get 1 score for each item:
 | Age                                 | `ba004`                                    |
 | Sex                                 | `rgender`                                  |
 
-
-
 ### Calculate cognitive impairment score
-`Highest Level of Education Attained` and `Age` is also considered in the calculation. 
+
+`Highest Level of Education Attained` and `Age` is also considered in the calculation.
 
 We firstly remove people who's age is less than `45`, then the calculation of score is followed as below:
 |Score|Education|
@@ -171,3 +184,9 @@ We firstly remove people who's age is less than `45`, then the calculation of sc
 |21|Abnormal for 8-th grade education|
 |<23|Abnormal for high school education|
 |<24|Abnormal for college education|
+
+### What does `solveID.py` do?
+
+For the `Individual ID` is changed after 2011, we need to change it the same format as it was in 2013.
+
+I am grateful that this [article](https://www.zhihu.com/question/582044473?write#:~:text=CHARLS%20%E6%95%B0%E6%8D%AE%E5%BA%93%202011%E5%B9%B4%E5%85%AC%E5%B8%83%E7%9A%84%E6%95%B0%E6%8D%AEID%E7%BC%96%E7%A0%81%E4%B8%BA11%E4%BD%8D%EF%BC%8C2013%E5%B9%B4%E5%90%8E%E5%BC%80%E5%A7%8BID%E7%BC%96%E7%A0%81%E4%B8%BA12%E4%BD%8D%E3%80%82%20%E7%BC%96%E7%A0%81%E5%8E%9F%E5%88%99%E4%B8%BA%E5%9C%A813%E5%B9%B4%E7%BC%96%E7%A0%81%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC%E4%BA%8C%E4%BD%8D%E5%8A%A00%EF%BC%8C%E4%BE%8B%E5%A6%82%E5%90%8C%E4%B8%80%E4%B8%AA,%E7%A0%94%E7%A9%B6%E5%AF%B9%E8%B1%A1%202011%E5%B9%B4ID%3A01010410102%EF%BC%8C%E7%9B%B8%E5%BA%942013%E5%B9%B4%E5%90%8EID%EF%BC%9A010104101002%E3%80%82%20ID%E6%98%AF%E8%AF%86%E5%88%AB%E8%BA%AB%E4%BB%BD%E7%9A%84%E6%A0%87%E8%AF%86%EF%BC%8C%E6%89%80%E4%BB%A5%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E3%80%81%E6%88%96%E8%80%85%E5%8C%B9%E9%85%8D%E5%8F%98%E9%87%8F%E5%B0%B1%E8%A6%81%E5%AF%B9%20ID%E7%BC%96%E7%A0%81%20%E8%BF%9B%E8%A1%8C%E7%BB%9F%E4%B8%80) which was provided by our team member helps me so much.
