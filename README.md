@@ -190,3 +190,7 @@ We firstly remove people who's age is less than `45`, then the calculation of sc
 For the `Individual ID` is changed after 2011, we need to change it the same format as it was in 2013.
 
 I am grateful that this [article](https://www.zhihu.com/question/582044473?write#:~:text=CHARLS%20%E6%95%B0%E6%8D%AE%E5%BA%93%202011%E5%B9%B4%E5%85%AC%E5%B8%83%E7%9A%84%E6%95%B0%E6%8D%AEID%E7%BC%96%E7%A0%81%E4%B8%BA11%E4%BD%8D%EF%BC%8C2013%E5%B9%B4%E5%90%8E%E5%BC%80%E5%A7%8BID%E7%BC%96%E7%A0%81%E4%B8%BA12%E4%BD%8D%E3%80%82%20%E7%BC%96%E7%A0%81%E5%8E%9F%E5%88%99%E4%B8%BA%E5%9C%A813%E5%B9%B4%E7%BC%96%E7%A0%81%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC%E4%BA%8C%E4%BD%8D%E5%8A%A00%EF%BC%8C%E4%BE%8B%E5%A6%82%E5%90%8C%E4%B8%80%E4%B8%AA,%E7%A0%94%E7%A9%B6%E5%AF%B9%E8%B1%A1%202011%E5%B9%B4ID%3A01010410102%EF%BC%8C%E7%9B%B8%E5%BA%942013%E5%B9%B4%E5%90%8EID%EF%BC%9A010104101002%E3%80%82%20ID%E6%98%AF%E8%AF%86%E5%88%AB%E8%BA%AB%E4%BB%BD%E7%9A%84%E6%A0%87%E8%AF%86%EF%BC%8C%E6%89%80%E4%BB%A5%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E3%80%81%E6%88%96%E8%80%85%E5%8C%B9%E9%85%8D%E5%8F%98%E9%87%8F%E5%B0%B1%E8%A6%81%E5%AF%B9%20ID%E7%BC%96%E7%A0%81%20%E8%BF%9B%E8%A1%8C%E7%BB%9F%E4%B8%80) which was provided by our team member helps me so much.
+
+### What does `extraDetailDealing.py` do?
+
+As you know, a project needs to be fixed for many times. Our project also needs to deal with some details.
